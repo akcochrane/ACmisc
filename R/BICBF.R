@@ -7,7 +7,7 @@
 #' evidence for one model over another). This approach is promoted by, for example,
 #' Kass and Raftery (1995; 10.1080/01621459.1995.10476572) and Wagenmakers (2007; 10.3758/BF03194105).
 #'
-#' NOT intended for relations between two variables.
+#' NOT intended for relations between two variables (in that case, use \code{robustCor} or similar).
 #'
 #' Could use further testing to ensure that formula extraction is correct.
 #'
@@ -18,6 +18,9 @@
 #' BIC_dropped of the Intercept term is the \strong{full model BIC}. BIC_dropped of all
 #'  other coefficients are the BIC of the model without that coefficient.
 #'  See comment(output) for more information.
+#'  
+#'  \strong{Known Bug} preventing use with non-multi-level models. In other words,
+#'  it is only currently functional for multi-level models (i.e., \code{lmer()} or \code{glmer()})
 #'
 #' @param modIn \code{lm}, \code{glm}, \code{rlm}, \code{lmer} or \code{glmer} model.
 #' @param logBase Base of the logBF
@@ -25,7 +28,6 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' d <- data.frame(y = rnorm(60),grup = sample(c('a','b','c','d'),60,replace = T),arb = sample(c('e','f','g','h'),60,replace = T))
 #' d$x  <- d$y + rnorm(60,0,.2)
 #'
@@ -43,7 +45,7 @@
 #'
 #' m_glm <- glm(y ~ x*arb,d,family=gaussian())
 #' BICBF(m_glm)
-#'}
+#' 
 BICBF <- function(modIn,logBase=3){
 
   require(MASS)
