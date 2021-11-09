@@ -32,7 +32,7 @@ devtools::install_github('akcochrane/ACmisc', build_vignettes = TRUE)
 
 Calculates BIC for the entire lm(), rlm(), glm(), lmer(), or glmer() model, and for the entire set of models dropping each fixed effect one at a time. Uses the change in BIC between models to approximate Bayes Factors (essentially penalized Likelihood Ratios, or evidence for one model over another). Follows the recommendations of Wagenmakers (2007; PBR)
 
-```{r BICBF_glmer}
+```{r BICBF_glmer, warning=F, message=F}
 library(lme4)
 mod <- lmer(mot ~ nback * ravens + (1|isAdult),dat_cochraneEtAl_2019_PLOSOne)
 
@@ -46,7 +46,7 @@ Extracts scores from a single isotonic [think: rank-based] underlying dimension 
 
 ### `ddm_dr_lm()` -- Drift Diffusion Linear Model
 
-Essentially fits a generalized linear model for a Wiener process, using the density estimation function from the RWiener package. First fits a standard 4-parameter Wiener model to the entire RT+response-category vector. Then uses the boundary separation, bias, and non-decision time from this overall model, and finds the best set of parameters to create a drift rate vector as a linear 
+Essentially fits a generalized linear model for a Wiener process, using the density estimation function from the RWiener package. First fits a standard 4-parameter Wiener model to the entire RT+response-category vector. Then uses the boundary separation, bias, and non-decision time from this overall model, and finds the best set of parameters to create a drift rate vector as a linear function of the right-hand side of formIn. __Only numeric predictors have been tested.__ 
 
 ### `findLowerRT()`
 

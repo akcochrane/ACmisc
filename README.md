@@ -31,21 +31,9 @@ PBR)
 
 ``` r
 library(lme4)
-```
-
-    ## Warning: package 'lme4' was built under R version 4.1.1
-
-    ## Loading required package: Matrix
-
-``` r
 mod <- lmer(mot ~ nback * ravens + (1|isAdult),dat_cochraneEtAl_2019_PLOSOne)
 
 BF_table <- BICBF(mod)
-```
-
-    ## Loading required package: MASS
-
-``` r
 knitr::kable(BF_table,digits=3)
 ```
 
@@ -70,7 +58,8 @@ the density estimation function from the RWiener package. First fits a
 standard 4-parameter Wiener model to the entire RT+response-category
 vector. Then uses the boundary separation, bias, and non-decision time
 from this overall model, and finds the best set of parameters to create
-a drift rate vector as a linear
+a drift rate vector as a linear function of the right-hand side of
+formIn. **Only numeric predictors have been tested.**
 
 ### `findLowerRT()`
 
