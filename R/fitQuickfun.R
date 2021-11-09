@@ -1,6 +1,8 @@
 
 
-#' Fit a Quick [see Ahissar & Hochstein] function, given data [currently nonsense fits]
+#' Fit a Quick [see Ahissar & Hochstein] function, given data 
+#' 
+#' \strong{this function currently does not work as intended}
 #'
 #' Given data, what are the predicted Quick parameters?
 #' Fits [by minimizing negative log likelihood] either a time-evolving or a static Quick function 

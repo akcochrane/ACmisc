@@ -2,7 +2,7 @@
 % Please edit documentation in R/fitQuickfun.R
 \name{fitQuickfun}
 \alias{fitQuickfun}
-\title{Fit a Quick [see Ahissar & Hochstein] function, given data [currently nonsense fits]}
+\title{Fit a Quick [see Ahissar & Hochstein] function, given data}
 \usage{
 fitQuickfun(
   x,
@@ -28,12 +28,14 @@ fitQuickfun(
 \item{maxThresh}{How high of a threshold is acceptable (in multiples of the largest stimulus strength value)?}
 }
 \description{
+\strong{this function currently does not work as intended}
+}
+\details{
 Given data, what are the predicted Quick parameters?
 Fits [by minimizing negative log likelihood] either a time-evolving or a static Quick function 
 (Ahissar & Hochstein). If time-evolving,
 then threshold is each fit by a 3-parameter exponential decay function.
-}
-\details{
+
 Returns a data frame with fit parameters and the [negative] log likelihood.
 }
 \examples{

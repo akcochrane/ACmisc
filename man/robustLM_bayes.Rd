@@ -7,11 +7,11 @@
 robustLM_bayes(formula, data, ..., iter = 10000, showProgress = T, quiet = T)
 }
 \arguments{
-\item{formula}{Formula, as in code{lm()} or \code{lmer()}}
+\item{formula}{Formula, as in \code{lm()}, \code{brm()} or \code{lmer()}}
 
 \item{data}{Data, as in code{lm()} or \code{lmer()}}
 
-\item{...}{Additional arguments to pass to \code{link[brms]{brm}}. For example, if multiple cores are available, \code{cores=2} or more should drastically speed up performance.}
+\item{...}{Additional arguments to pass to \code{\link[brms]{brm}}. For example, if multiple cores are available, \code{cores=2} or more should drastically speed up performance.}
 
 \item{iter}{Number of iterations. More is better, within reasonable time constraints}
 
@@ -37,11 +37,11 @@ values have been quite consistent across fitting runs and others have not when u
 \code{sampling} provides the most robust estimates.
 }
 \examples{
-
-m <- robustLM_bayes(ravens ~ corsi * isAdult, dat_ac_fyp)
+\dontrun{
+m <- robustLM_bayes(mot ~ ufov * enum, dat_cochraneEtAl_2019_PLOSOne) 
 
 m$bayes_factors
-
+}
 }
 \seealso{
 \code{\link[brms]{brm}}, \code{\link[brms]{bayes_factor}}, and \code{\link[brms]{brmsfamily}}.

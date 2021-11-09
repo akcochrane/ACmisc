@@ -18,9 +18,9 @@
 #' @seealso
 #' \code{\link[brms]{brm}}, \code{\link[brms]{bayes_factor}}, and \code{\link[brms]{brmsfamily}}.
 #'
-#' @param formula Formula, as in code{lm()} or \code{lmer()}
+#' @param formula Formula, as in \code{lm()}, \code{brm()} or \code{lmer()}
 #' @param data Data, as in code{lm()} or \code{lmer()}
-#' @param ...  Additional arguments to pass to \code{link[brms]{brm}}. For example, if multiple cores are available, \code{cores=2} or more should drastically speed up performance.
+#' @param ...  Additional arguments to pass to \code{\link[brms]{brm}}. For example, if multiple cores are available, \code{cores=2} or more should drastically speed up performance.
 #' @param iter Number of iterations. More is better, within reasonable time constraints
 #' @param showProgress Show a small progress bar?
 #' @param quiet Logical. To show model progress, or hide it.
@@ -28,11 +28,11 @@
 #' @export
 #'
 #' @examples
-#'
-#' m <- robustLM_bayes(ravens ~ corsi * isAdult, dat_ac_fyp)
+#' \dontrun{
+#' m <- robustLM_bayes(mot ~ ufov * enum, dat_cochraneEtAl_2019_PLOSOne) 
 #'
 #' m$bayes_factors
-#'
+#' }
 robustLM_bayes <- function(formula,data,...,iter = 10000 , showProgress = T, quiet = T){
 
   ## test with MEM; figure out how to not have grouping variables in the BF comparisons
@@ -97,17 +97,8 @@ robustLM_bayes <- function(formula,data,...,iter = 10000 , showProgress = T, qui
   m_full$dropOneMods <- m_dropOne
 
   if(showProgress){ setTxtProgressBar(pb, 3) }
-  if(F){ ## ## for testing
-    dataIn <- data.frame(
-      y = rnorm(300)
-      ,x1 = sample(c('a','b','c'),300,replace = T)
-    ) ; dataIn$x2 <- dataIn$y + rnorm(300)
 
-    formIn <- y ~ x1*x2
-
-    m <- robustLM_bayes(formIn, dataIn)
-
-  }
+  
   if(showProgress){ close(pb) }
   m_full$bayes_factors <- bayes_factors
   return(m_full)
