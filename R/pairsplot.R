@@ -16,7 +16,10 @@
 #' @export
 #'
 #' @examples
-#' pairsplot(ACfypDat[,c('Corsi',"MOT","Ravens",'UFOV',"ANT_Alert")])
+#' d <- iris[1:100,c('Sepal.Length','Sepal.Width','Petal.Length','Petal.Width')]
+#' d$isoDist <- ACmisc::d1iso(d)
+#' pairsplot(d)
+#' 
 pairsplot <- function(d, method = 'Spearman', main = '',stars=T,color='darkgrey'){
 
   library(psych)

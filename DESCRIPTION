@@ -3,8 +3,8 @@ Type: Package
 Title: Aaron Cochrane's miscellaneous functions
 Version: 21.11.01
 Author: Aaron Cochrane
-Maintainer: Aaron Cochrane <akcochrane@wisc.edu>
-Description: miscellaneous functions to assist in analysis
+Maintainer: Aaron Cochrane <aaron.cochrane@unige.ch>
+Description: miscellaneous functions to assist in analyses
 License: MIT
 Encoding: UTF-8
 LazyData: true
@@ -14,6 +14,8 @@ Suggests:
     rmarkdown,
     psych,
     lme4,
-    testthat
+    testthat,
+    RWiener,
+    brms
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

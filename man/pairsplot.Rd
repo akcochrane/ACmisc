@@ -25,5 +25,8 @@ raw BF <.33333 or >3. \strong{Beware}: The \emph{n} used in these calculations i
 If you have missing data, these estimates could be wildly off.
 }
 \examples{
-pairsplot(ACfypDat[,c('Corsi',"MOT","Ravens",'UFOV',"ANT_Alert")])
+d <- iris[1:100,c('Sepal.Length','Sepal.Width','Petal.Length','Petal.Width')]
+d$isoDist <- ACmisc::d1iso(d)
+pairsplot(d)
+
 }

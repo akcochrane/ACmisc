@@ -9,9 +9,18 @@ d1iso(data, dist_method = c("manhattan", "euclidean"))
 \arguments{
 \item{data}{Must be numeric}
 
-\item{dist_method}{'manhattan' (default; L1 norm) or 'euclidean' (AKA OLS or L2 norm)}
+\item{dist_method}{'manhattan' (default; L1 norm) or 'euclidean' (AKA OLS or L2 norm).}
 }
 \description{
 Implements \code{\link[MASS]{isoMDS}(dist(data,dist_method),k=1)}, with
 attributes of correlations with (scaled) rowMeans and with PCA component-1.
+}
+\details{
+Will break if identical cases are present.
+}
+\examples{
+d <- iris[1:100,c('Sepal.Length','Sepal.Width','Petal.Length','Petal.Width')]
+d$isoDist <- d1iso(d)
+ACmisc::pairsplot(d)
+
 }
