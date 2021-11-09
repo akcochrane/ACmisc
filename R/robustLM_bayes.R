@@ -29,6 +29,7 @@
 #'
 #' @examples
 #' \dontrun{
+#' # This fairly simple example takes about 160 seconds on a good computer. On a less-good computer, it may crash.
 #' m <- robustLM_bayes(mot ~ ufov * enum, dat_cochraneEtAl_2019_PLOSOne) 
 #'
 #' m$bayes_factors
