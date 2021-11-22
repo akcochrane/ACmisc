@@ -10,12 +10,11 @@ zeroOneNorm(dat)
 \item{dat}{numeric vector to normalize}
 }
 \description{
-Description
-}
-\details{
-Details
+To force a variable to have an easily interpretable min and max.
 }
 \examples{
-example
+examples
+zeroOneNorm(rnorm(30))
+zeroOneNorm(dat_cochraneEtAl_2019_PLOSOne$mot)
 }
 \keyword{keywords}

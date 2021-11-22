@@ -14,5 +14,11 @@ wilcZ(x, y, pairTest = F)
 \item{pairTest}{Are x and y paired?}
 }
 \description{
-Also returns the p value, W value, and the difference in medians.
+Essentially, a wrapper for \code{ wilcox.test} that also returns the p value, 
+Z value, W value, and the difference in medians.
+}
+\examples{
+# Note that this doesn't make *a lot* of sense, since they're two totally different measurements
+wilcZ(dat_cochraneEtAl_2019_PLOSOne$ufov, dat_cochraneEtAl_2019_PLOSOne$mot,pairTest = T)
+
 }

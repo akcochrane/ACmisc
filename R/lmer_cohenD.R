@@ -4,6 +4,7 @@
 #' Uses a fairly naive calculation: \code{abs(b)/(SE*sqrt(df))}, where df is approximated
 #' using a Kenward-Rogers approximation (package \code{pbkrtest} via \code{lmSupport::modelSummary}). 
 #' Returns the \code{lmSupport::modelSummary} output with the addition of \code{$cohen_d}.
+#' 
 #'
 #' @param lmerMod Model fit by \code{lme4::lmer()}
 #'
@@ -11,9 +12,12 @@
 #'
 lmer_cohenD <- function(lmerMod){
   
-  m_summ <- lmSupport::modelSummary(lmerMod)
+  capture.output({suppressWarnings({
+    m_summ <- lmSupport::modelSummary(lmerMod,Print = FALSE)
+  })
+                  }, file='NUL')
   
   m_cohenD <- abs(m_summ$KRAppox[,'Estimate'])/(m_summ$KRAppox[,'SE']*sqrt(m_summ$KRAppox[,'error df']))
   
-  return(m_cohenD)
+  return(data.frame(m_summ$KRAppox,pseudo_cohenD = m_cohenD))
 }

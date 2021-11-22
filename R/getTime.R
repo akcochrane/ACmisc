@@ -1,16 +1,15 @@
-
-
 #' Get the current date and time in an easy-to-use format
 #' 
 #' Returns a string with the date and time. 
 #' 
-#' Details
 #' 
 #' @param style style 1 uses letters to convey the month, style 2 uses numbers to convey the month.
 #' @keywords  keywords
 #' @export
 #' @examples 
+#' 
 #' getTime()
+#' getTime(style = 2)
 #' 
 getTime <- function(style=1){
   # style 1 uses month words, style 2 uses month numbers

@@ -1,12 +1,18 @@
 #' Wilcoxon tests, returning a z value that respects the sign of the differences between two vectors
 #'
-#' Also returns the p value, W value, and the difference in medians.
+#' Essentially, a wrapper for \code{ wilcox.test} that also returns the p value, 
+#' Z value, W value, and the difference in medians.
 #'
 #' @param x First vector to compare
 #' @param y Second vector to compare
 #' @param pairTest Are x and y paired?
 #'
 #' @export
+#' 
+#' @examples 
+#' # Note that this doesn't make *a lot* of sense, since they're two totally different measurements
+#' wilcZ(dat_cochraneEtAl_2019_PLOSOne$ufov, dat_cochraneEtAl_2019_PLOSOne$mot,pairTest = T)
+#' 
 
 wilcZ <- function(x,y,pairTest=F){
   

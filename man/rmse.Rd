@@ -7,9 +7,9 @@
 rmse(vect1, vect2)
 }
 \arguments{
-\item{vect1}{}
+\item{vect1}{A numeric vector}
 
-\item{vect2}{}
+\item{vect2}{Another numeric vector, of the same length as \code{vect1}}
 }
 \description{
 Simply finds the RMSE between vect1 and vect2 (of the same length). 

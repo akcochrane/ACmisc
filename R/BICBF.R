@@ -37,10 +37,10 @@
 #' m_glmer <- lme4::glmer(y~x*arb+(1|grup),d,family=gaussian())
 #' BICBF(m_glmer)
 #'
-#' m_lm <- lm(y ~ x*arb,d)
+#' m_lm <- lm(ravens ~ alert * corsi + isAdult, dat_cochraneEtAl_2019_PLOSOne)
 #' BICBF(m_lm)
 #'
-#' m_rlm <- MASS::rlm(y ~ x*arb,d)
+#' m_rlm <- MASS::rlm(ravens ~ alert * corsi + isAdult, dat_cochraneEtAl_2019_PLOSOne)
 #' BICBF(m_rlm)
 #'
 #' m_glm <- glm(y ~ x*arb,d,family=gaussian())

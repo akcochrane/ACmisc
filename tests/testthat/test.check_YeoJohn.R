@@ -1,5 +1,3 @@
-
-
 context("check_YeoJohn")
 
 library(ACmisc)

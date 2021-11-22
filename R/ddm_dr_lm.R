@@ -13,11 +13,19 @@
 #' @param nBoots number of bootstrapped samples for CI of drift rate parameters. Must be an integer >1
 #' @param fixBias Optional scalar value to fix the bias [beta] parameter of the Wiener function
 #'
+#' @seealso 
+#' \code{\link[RWiener]{wdm}}
+#'
 #' @return
 #' @export
 #'
 #' @examples
-#' m <- ddm_dr_lm(rt ~ totalTrialNum * stimStr, data,respVar='corr',nBoots = 30)
+#' d <- data.frame(rt = .2 + exp(rnorm(50,-.5,.5))
+#' ,corr = rbinom(50,1,.5)
+#' ,totalTrialNum = 1:50
+#' )
+#' d$stimStr <- d$rt+rnorm(50,d$corr)
+#' m <- ddm_dr_lm(rt ~ totalTrialNum * stimStr, data = d,respVar='corr',nBoots = 30)
 #' m$model
 #'
 ddm_dr_lm <- function(formIn,data,respVar,nBoots=2,fixBias = NA){

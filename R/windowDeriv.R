@@ -6,32 +6,26 @@
 #'
 #' Probably the most useful part of resampling the data is to get the relative uncertainty of estimates,
 #' to possibly reject the estimates with the highest uncertainty of estimates.
-#'
-#' To do:
-#'
-#' - How to effectively orthogonalize d0 and d2?
-#'
-#' - Is this robust to non-sorted times? Probably not
-#'
-#' - How to recommend appropriate HWHM? Does the current implementation work
+#' 
+#' Inspired by Pascal Deboeck (e.g., \code{2013-01010-019} or \code{2010-06957-007})
 #'
 #' @param dat Vector of values to get time-dependent derivatives. Best to sort by \code{tim}.
 #' @param tim Vector of time values. Should be positive real numbers. Best to be sorted.
 #' @param hwhm Distance (in time) at which values should receive half of the weight as the centered time. Approximately \code{1.18*sd} of the Gaussian weights. Defaults to 2 times \code{mean(diff(tim))}
-#' @param detrend Logical. Should an exponential trend, with a half-life of .5*max(tim), be subtracted prior to fitting derivatives?
+#' @param detrend Logical. Should a heuristic exponential trend, with a half-life of .5*max(tim), be subtracted prior to fitting derivatives?
 #' @param orthog NOT IMPLEMENTED... always F for now. in the future, use contrasts to make derivatives orthogonal?
 #' @param nResample Number of resamples, to get SE in estimates
-#' @param resamplePercent Percent of data to resample, to get pseudo-SE in estimates. *this is currently arbitrary, and the scaling pseudo-SE is therefore arbitrary as well. However, relative pseudo-SE should be interpretable.*
+#' @param resamplePercent Percent of data to resample, to get pseudo-SE in estimates. *this is currently arbitrary, and the scaling pseudo-SE is therefore arbitrary as well. However, pointwise relative pseudo-SE should be interpretable.*
 #' @export
 #'
 #' @examples
 #' d <- data.frame(tim = 1:100, y = rnorm(100) + log(seq(1,100))) ; d$y[sample(100,5)] <- NA
 #' fit <- windowDeriv(d$y,d$tim,nResample = 20) # should probably resample >100 to get anything like reliable estimates
 #' plot(d) ; lines(d$tim,fit$mean_est$level)
-#' psych::pairs.panels(fit$mean_est)
+#' ACmisc::pairsplot(fit$mean_est)
 #'
 #' # plot relative uncertainty in estimates
-#' psych::pairs.panels(data.frame(Time=1:nrow(d),fit$resampled_se_est[,2:4]))
+#' ACmisc::pairsplot(data.frame(Time=1:nrow(d),fit$resampled_se_est[,2:4]))
 #'
 #' ## look at frequency estimates for sunspot data
 #' dSun <- data.frame(spots = as.numeric(datasets::sunspot.month))
@@ -39,10 +33,19 @@
 #' # takes a while to run:
 #' plot(c(0,2),c(0,20),col = 'white',xlab='hwhm (years)',ylab='estimated sunspot phase length',sub='true phase length is approximately 11')
 #' for (curHWHM in seq(.1,2,.1)){points(curHWHM,attr(windowDeriv(dSun$spots,dSun$month, hwhm = curHWHM),'frequency'))}
-#' for (curHWHM in seq(.1,2,.1)){points(curHWHM,attr(windowDeriv(dSun$spots,dSun$month, hwhm = curHWHM,orthog=T),'frequency'),col='red')}
+#' # for (curHWHM in seq(.1,2,.1)){points(curHWHM,attr(windowDeriv(dSun$spots,dSun$month, hwhm = curHWHM,orthog=T),'frequency'),col='red')}
 #'
 windowDeriv <- function(dat,tim,hwhm='auto_2',detrend=F,orthog=F,nResample = 0, resamplePercent = .75){
 
+  #' To do:
+  #'
+  #' - How to effectively orthogonalize d0 and d2?
+  #'
+  #' - Is this robust to non-sorted times? Probably not
+  #'
+  #' - How to recommend appropriate HWHM? Does the current implementation work
+  #' - - (obviously this is necessarily related to the timescale of theoretical interest)
+  
   hwhmScale <- mean(diff(tim),na.rm=T)
   if(hwhm == 'auto_2'){
     hwhm <- hwhmScale*2

@@ -29,7 +29,15 @@ drift rate vector as a linear function of the right-hand side of \code{formIn}. 
 numeric predictors have been tested}.
 }
 \examples{
-m <- ddm_dr_lm(rt ~ totalTrialNum * stimStr, data,respVar='corr',nBoots = 30)
+d <- data.frame(rt = .2 + exp(rnorm(50,-.5,.5))
+,corr = rbinom(50,1,.5)
+,totalTrialNum = 1:50
+)
+d$stimStr <- d$rt+rnorm(50,d$corr)
+m <- ddm_dr_lm(rt ~ totalTrialNum * stimStr, data = d,respVar='corr',nBoots = 30)
 m$model
 
+}
+\seealso{
+\code{\link[RWiener]{wdm}}
 }

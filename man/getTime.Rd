@@ -12,11 +12,10 @@ getTime(style = 1)
 \description{
 Returns a string with the date and time.
 }
-\details{
-Details
-}
 \examples{
+
 getTime()
+getTime(style = 2)
 
 }
 \keyword{keywords}

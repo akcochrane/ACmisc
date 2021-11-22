@@ -16,7 +16,8 @@ windowWDM(dat, windowSize = 20, fit_BS = FALSE)
 \description{
 Estimates a set of Wiener Diffusion Model parameters for a vector of formatted
 data. Estimation uses \code{\link{RWiener::wdm}} and data must be formatted as a 
-1-dimensional vector according the to \code{RWiener} package (i.e., RT \* 2 \* (boundary=='upper' - 0.5) ). 
+1-dimensional vector according the to \code{RWiener} package (i.e., RT * 2 
+* (boundary=='upper' - 0.5) ). 
 Assumes that RTs are associated with equally-spaced and sorted timepoints (e.g., trials of a behavioral study).
 First fits a \code{\link{RWiener::wdm}} for the entire RT vector, and applies some of these parameters
 (NDT, bias, and possibly BS) to the entire RT vector. Next takes a set of windows, equally spaced and centered at
@@ -28,6 +29,6 @@ Returns a data frame of estimated parameters, including 95\% CI.
 dat <- (rnorm(200,.2,.05) + rexp(200,1 / .2))*sample(c(-1,1),200,replace=T)
     m_drY_bsN <- windowWDM(dat,fit_BS = F)
     m_drY_bsY <- windowWDM(dat,fit_BS = T)
-    psych::pairs.panels(cbind(trialNum = 1:200, RT = abs(dat),m_drY_bsY[,1:6]))
+    ACmisc::pairsplot(cbind(trialNum = 1:200, RT = abs(dat),m_drY_bsY[,1:6]))
     }
 }

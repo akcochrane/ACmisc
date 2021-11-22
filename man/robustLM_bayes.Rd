@@ -9,7 +9,7 @@ robustLM_bayes(formula, data, ..., iter = 10000, showProgress = T, quiet = T)
 \arguments{
 \item{formula}{Formula, as in \code{lm()}, \code{brm()} or \code{lmer()}}
 
-\item{data}{Data, as in code{lm()} or \code{lmer()}}
+\item{data}{Data, as in \code{lm()} or \code{lmer()}}
 
 \item{...}{Additional arguments to pass to \code{\link[brms]{brm}}. For example, if multiple cores are available, \code{cores=2} or more should drastically speed up performance.}
 
@@ -31,13 +31,14 @@ each fixed effect's log (base 3) Bayes Factor.
 Bridge sampling is run 5 times for each effect, and the most conservative (i.e., equivocal)
 of the resulting BF is returned.
 
-While using \code{method = 'fullrank'} speeds up the model (over the default \code{method  = 'sampling'} by a factor of over 3.5 in preliminary tests), it would be advised
+While using \code{algorighm = 'fullrank'} speeds up the model (over the default \code{algorithm  = 'sampling'} by a factor of over 3.5 in preliminary tests), it would be advised
 to fit and compare several fitting runs to assess the robustness of the resulting coefficients and Bayes Factors. In brief tests, some
 values have been quite consistent across fitting runs and others have not when using \code{fullrank} or \code{meanfield}; in general, waiting for
 \code{sampling} provides the most robust estimates.
 }
 \examples{
 \dontrun{
+# This fairly simple example takes about 160 seconds on a good computer.
 m <- robustLM_bayes(mot ~ ufov * enum, dat_cochraneEtAl_2019_PLOSOne) 
 
 m$bayes_factors
