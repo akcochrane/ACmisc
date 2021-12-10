@@ -9,7 +9,9 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 
 Various functions used by Aaron Cochrane, and encouraged for
 collaborators to use. Please don’t hesitate to branch, submit pull
-requests, etc., or to contact Aaron directly.
+requests, etc., or to contact Aaron directly. And if you use the
+functions in published work, it would be wonderful if you cited this
+package using the Zenodo DOI. Thanks!
 
 ## Installing the package
 
