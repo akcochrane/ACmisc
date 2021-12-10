@@ -1,5 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![DOI](https://zenodo.org/badge/425863127.svg)](https://zenodo.org/badge/latestdoi/425863127)
+
 # ACmisc
 
 [![License:
