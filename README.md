@@ -18,16 +18,16 @@ from Github.
 
     devtools::install_github('akcochrane/ACmisc', build_vignettes = TRUE)
 
-## A couple example functions
+## A handful of example functions
 
 ### `BICBF()` – Bayes Factors for common models
 
-Calculates BIC for the entire lm(), rlm(), glm(), lmer(), or glmer()
-model, and for the entire set of models dropping each fixed effect one
-at a time. Uses the change in BIC between models to approximate Bayes
-Factors (essentially penalized Likelihood Ratios, or evidence for one
-model over another). Follows the recommendations of Wagenmakers (2007;
-PBR)
+Calculates BIC for an entire `lm()`, `rlm()`, `glm()`, `lmer()`, or
+`glmer()` model, and for the entire set of models dropping each fixed
+effect one at a time. Uses the change in BIC between models to
+approximate Bayes Factors (essentially penalized Likelihood Ratios, or
+evidence for one model over another). Follows the recommendations of
+Wagenmakers (2007; PBR).
 
 ``` r
 library(lme4)
@@ -54,14 +54,51 @@ different variables’ lack of Gaussian-ness.
 ### `ddm_dr_lm()` – Drift Diffusion Linear Model
 
 Essentially fits a generalized linear model for a Wiener process, using
-the density estimation function from the RWiener package. First fits a
-standard 4-parameter Wiener model to the entire RT+response-category
-vector. Then uses the boundary separation, bias, and non-decision time
-from this overall model, and finds the best set of parameters to create
-a drift rate vector as a linear function of the right-hand side of
-formIn. **Only numeric predictors have been tested.**
+the density estimation function from the `RWiener` package. First fits a
+standard 4-parameter Wiener model to an entire vector of RTs and
+response-categories. Then uses the boundary separation, bias, and
+non-decision time from this overall model, and finds the best set of
+parameters to create a drift rate vector as a linear function of the
+right-hand side of the model formula. **Only numeric predictors have
+been tested.**
 
 ### `findLowerRT()`
 
 Follows the procedure of Ratcliff & Tuerlinckx (2002) to find the lowest
 RT at which accuracy is below chance.
+
+### `getTime()`
+
+Returns a string with a formatted date and time, to the nearest minute.
+
+### `isOutlier()`
+
+Uses robust covariance estimation of Mahalanobis distances to identify
+multivariate outliers within a dataset; follows the procedure outlined
+by Leys and colleagues (2018; JESP).
+
+### `resetSeed()`
+
+Re-“randomizes” the seed for random generation.
+
+### `robustLM_bayes()`
+
+Implements a very robust linear model, with mixed-effects terms
+possible. Uses median regression within the `brms` package to fit the
+specified model and sub-models, and uses the `bridgesampling` package to
+estimate Bayes Factors supporting the model *with* the predictor
+compared to the model *without* that predictor.
+
+### `sourceIfChanged()`
+
+Useful when scripts may take a long time to run. Runs a file, just like
+`source()`. But the resulting namespace is saved (in an `.RData`), as
+well as a plain-text copy. The next time that `sourceIfChanged` is run,
+it simply loads the `.RData` file if there haven’t been any changes, and
+it re-`source`s the `.R` file if there has been changes.
+
+### `YeoJohn()`
+
+Applies a Yeo-Johnson univariate power transformation to a variable,
+after optimizing the Yeo-Johnson parameter to minimize the variable’s
+skew.
