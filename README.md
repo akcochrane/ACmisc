@@ -12,7 +12,8 @@ Various functions used by Aaron Cochrane, and encouraged for
 collaborators to use. Please don’t hesitate to branch, submit pull
 requests, etc., or to contact Aaron directly. And if you use the
 functions in published work, it would be wonderful if you cited this
-package using the . Thanks!
+package using the [Zenodo DOI
+10.5281/zenodo.5773069](10.5281/zenodo.5773069). Thanks!
 
 ## Installing the package
 
