@@ -12,12 +12,9 @@ shinyReg(dat, overallTitle = "Data Exploration")
 \item{overallTitle}{What to you want your window's big title to be?}
 }
 \description{
-Opens shiny window to allow interactive exploration of a dataset.
-}
-\details{
-Details
+Opens shiny window to allow basic interactive exploration of a dataset.
 }
 \examples{
-example
+shinyReg(dat_cochraneEtAl_2019_PLOSOne)
+
 }
-\keyword{keywords}

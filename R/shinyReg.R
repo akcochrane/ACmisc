@@ -1,17 +1,22 @@
 #' Visualize two-predictor regression using shiny
 #'
-#' Opens shiny window to allow interactive exploration of a dataset.
-#'
-#' Details
+#' Opens shiny window to allow basic interactive exploration of a dataset.
 #'
 #' @param dat data frame that you would like to explore
 #' @param overallTitle What to you want your window's big title to be?
-#' @keywords  keywords
+#' 
 #' @export
 #' @examples
-#' example
+#' shinyReg(dat_cochraneEtAl_2019_PLOSOne)
+#' 
 
 shinyReg <- function(dat,overallTitle = 'Data Exploration'){
+  
+  # # TO DO: 
+  # include more instructions
+  # include warnings about what's problematic
+  # include filtering if possible (e.g., looking at subgroups)
+  # more description and example
 
   options(warn = -1)
 
@@ -83,7 +88,8 @@ server <- function(input, output) {
 }
 
 # Run the application
+capture.output({suppressWarnings({
 shinyApp(ui = ui, server = server)
-
+})}, file='NUL')
 # options(warn = 1)
 }

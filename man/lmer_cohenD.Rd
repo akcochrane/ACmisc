@@ -15,3 +15,7 @@ Uses a fairly naive calculation: \code{abs(b)/(SE*sqrt(df))}, where df is approx
 using a Kenward-Rogers approximation (package \code{pbkrtest} via \code{lmSupport::modelSummary}). 
 Returns the \code{lmSupport::modelSummary} output with the addition of \code{$cohen_d}.
 }
+\details{
+As with (& because of the underlying K-R approximation in) \code{lmSupport::modelSummary},
+this can take a very long time for large or complex models.
+}
