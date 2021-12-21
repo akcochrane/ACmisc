@@ -28,6 +28,14 @@ non-decision time from this overall model, and finds the best set of parameters 
 drift rate vector as a linear function of the right-hand side of \code{formIn}. \strong{Only
 numeric predictors have been tested}.
 }
+\details{
+Note that, for parameters other than drift rate, the \code{RWiener} labeling conventions are used: 
+\code{alpha} is boundary separation, \code{tau} is non-decision time, and
+\code{beta} is bias.
+
+\code{rt ~ 1} will cause an error; in principle, if a unconditional point estimate of drift rate is desired,
+a dummy constant numeric variable (e.g., all 0s) could be included as a predictor.
+}
 \examples{
 d <- data.frame(rt = .2 + exp(rnorm(50,-.5,.5))
 ,corr = rbinom(50,1,.5)
@@ -39,5 +47,6 @@ m$model
 
 }
 \seealso{
-\code{\link[RWiener]{wdm}}
+\code{\link[RWiener]{wdm}} for the method upon which this is based; 
+\code{\link[brms]{brm}} with family "wiener" for a much better (but slower) option.
 }

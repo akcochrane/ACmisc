@@ -12,7 +12,9 @@
 #'
 #' @param rtVector vector of RTs
 #' @param accVector vector of 0 and 1 or T and F indicating correct performance
+#' 
 #' @export
+#' 
 findLowerRT <- function(rtVector,accVector){
   
   # NOTE: 
