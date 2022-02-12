@@ -1,7 +1,7 @@
 Package: ACmisc
 Type: Package
 Title: Aaron Cochrane's miscellaneous functions
-Version: 21.11.01
+Version: 22.02.12
 Author: Aaron Cochrane
 Maintainer: Aaron Cochrane <aaron.cochrane@unige.ch>
 Description: miscellaneous functions to assist in analyses

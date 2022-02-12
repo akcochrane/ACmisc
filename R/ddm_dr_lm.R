@@ -38,15 +38,20 @@
 #'
 ddm_dr_lm <- function(formIn,data,respVar,nBoots=2,fixBias = NA){
   require(RWiener)
+  
+  # to do: option between fitting ndt etc for each bootstrap, or keeping the same one for overall
 
   yVar <- data[,as.character(formIn[[2]])] * (2*data[,respVar] - 1)
 
-  failed = T ; while(failed){try({
+  failed = T ; nTries <- 0 ; while(failed && nTries < 100){
+    nTries <- nTries+1
+    try({
   if(!is.numeric(fixBias)){
   total_wdm <- wdm(yVar)}else{
-  total_wdm <- wdm(yVar,beta = fixBias)
+  total_wdm <- wdm(yVar,beta = fixBias)}
+  failed <- F},silent=T)
   }
-  failed <- F},silent=T)}
+  if(failed){stop('RWiener::wdm() fit failed. Please check your data and respVar.')}
 
   modTerms <- c('dr_Intercept')
   modRHS <- modTerms
@@ -55,8 +60,6 @@ ddm_dr_lm <- function(formIn,data,respVar,nBoots=2,fixBias = NA){
     modTerms <- c(modTerms,paste0('dr_',gsub(':','_',curTerm)))
     modRHS <- paste0(modRHS,' + ',modTerms[length(modTerms)],'*',gsub(':','*',curTerm))
   }
-
-
 
   findDRerr <- function(pars,lhs=yVar,rhs=modRHS,modTerms=modTerms,data,alpha,tau,beta){
 
@@ -123,10 +126,31 @@ ddm_dr_lm <- function(formIn,data,respVar,nBoots=2,fixBias = NA){
                                          ci025 = NA , ci975 = NA , nBoot = NA)
 
   attr(model,'neg_LL') <- fitMod_all$value
-
+  
   model[1:length(modTerms),'ci025'] <- apply(fitMods_boots,2,quantile,.025)
   model[1:length(modTerms),'ci975'] <- apply(fitMods_boots,2,quantile,.975)
-  model[1:length(modTerms),'nBoot'] <- nBoots
+  
+  try({
+    model[1:length(modTerms),'ci025'] <- apply(fitMods_boots,2,TEfits::tef_quantileBoot,.025)
+    model[1:length(modTerms),'ci975'] <- apply(fitMods_boots,2,TEfits::tef_quantileBoot,.975)
+  },silent=T)
 
+  
+  
+  model[1:length(modTerms),'nBoot'] <- nBoots
+  
+  tmpDat <- data.frame(t(fitMod_all$par),data)
+  colnames(tmpDat)[1:length(fitMod_all$par)] <- modTerms
+  
+  data$fitted_DR <- eval(expr=as.formula(paste('~',modRHS))[[2]],env=tmpDat)
+# 
+#   fit_DR <- rowSums(
+#     sweep(m_ddm$data[,basisVars] , 
+#           2,
+#           m_ddm$model[paste0('dr_',basisVars),'Estimate'],
+#           '*'
+#     )
+#   )
+  
   return(list(model=model,wdmFit = total_wdm,pars_boots = fitMods_boots,data=data))
 }

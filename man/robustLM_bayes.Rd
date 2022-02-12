@@ -31,6 +31,10 @@ each fixed effect's log (base 3) Bayes Factor.
 Bridge sampling is run 5 times for each effect, and the most conservative (i.e., equivocal)
 of the resulting BF is returned.
 
+These models are computationally expensive and require quite a bit of memory. Without enough
+memory they will likely crash the R session. Other sources of errors or crashing may be 
+out-of-date packages, such as \code{RcppParallel}, \code{StanHeaders}, \code{brms}, \code{bridgesampling}.
+
 While using \code{algorighm = 'fullrank'} speeds up the model (over the default \code{algorithm  = 'sampling'} by a factor of over 3.5 in preliminary tests), it would be advised
 to fit and compare several fitting runs to assess the robustness of the resulting coefficients and Bayes Factors. In brief tests, some
 values have been quite consistent across fitting runs and others have not when using \code{fullrank} or \code{meanfield}; in general, waiting for
@@ -38,7 +42,7 @@ values have been quite consistent across fitting runs and others have not when u
 }
 \examples{
 \dontrun{
-# This fairly simple example takes about 160 seconds on a good computer.
+# This fairly simple example takes about 160 seconds on a fairly good computer.
 m <- robustLM_bayes(mot ~ ufov * enum, dat_cochraneEtAl_2019_PLOSOne) 
 
 m$bayes_factors
