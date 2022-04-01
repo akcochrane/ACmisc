@@ -130,12 +130,6 @@ ddm_dr_lm <- function(formIn,data,respVar,nBoots=2,fixBias = NA){
   model[1:length(modTerms),'ci025'] <- apply(fitMods_boots,2,quantile,.025)
   model[1:length(modTerms),'ci975'] <- apply(fitMods_boots,2,quantile,.975)
   
-  try({
-    model[1:length(modTerms),'ci025'] <- apply(fitMods_boots,2,TEfits::tef_quantileBoot,.025)
-    model[1:length(modTerms),'ci975'] <- apply(fitMods_boots,2,TEfits::tef_quantileBoot,.975)
-  },silent=T)
-
-  
   
   model[1:length(modTerms),'nBoot'] <- nBoots
   
