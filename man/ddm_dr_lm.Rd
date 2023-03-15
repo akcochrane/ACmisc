@@ -17,9 +17,6 @@ ddm_dr_lm(formIn, data, respVar, nBoots = 2, fixBias = NA)
 
 \item{fixBias}{Optional scalar value to fix the bias [beta] parameter of the Wiener function}
 }
-\value{
-
-}
 \description{
 Essentially fits a generalized linear model for a Wiener process, using the density
 estimation function from the \code{RWiener} package. First fits a standard 4-parameter Wiener

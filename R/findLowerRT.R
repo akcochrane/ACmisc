@@ -18,8 +18,8 @@
 findLowerRT <- function(rtVector,accVector){
   
   # NOTE: 
-    #' SHOULD EDIT FUNCTION TO START AT 10 RTS AND IF THIS NUMBER IS GOOD, RETURN 
-    #' A REJECTION THRESHOLD OF 0 AND A VECTOR OF ALL ACCEPTANCE.
+    # SHOULD EDIT FUNCTION TO START AT 10 RTS AND IF THIS NUMBER IS GOOD, RETURN 
+    # A REJECTION THRESHOLD OF 0 AND A VECTOR OF ALL ACCEPTANCE.
   
   # start by rejecting the trials with the lowest 4 RTs
   ## ## if the number rejected is below 10 or so, consider not rejecting any!

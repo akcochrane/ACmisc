@@ -15,9 +15,6 @@ oos_partial(xvars, partialvars = c(), data, nBoots = 200)
 
 \item{nBoots}{Number of resamples}
 }
-\value{
-
-}
 \description{
 Uses \code{tef_rlm_boot()} to get out-of-sample variance explained as well as bootstrapped p values.
 The latter is two times the proportion of the bootstrapped distribution is on the opposite side of

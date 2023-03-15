@@ -24,7 +24,6 @@
 #' \code{\link[RWiener]{wdm}} for the method upon which this is based; 
 #' \code{\link[brms]{brm}} with family "wiener" for a much better (but slower) option.
 #'
-#' @return
 #' @export
 #'
 #' @examples

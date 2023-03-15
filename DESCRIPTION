@@ -1,9 +1,9 @@
 Package: ACmisc
 Type: Package
 Title: Aaron Cochrane's miscellaneous functions
-Version: 22.02.12
+Version: 23.03.15
 Author: Aaron Cochrane
-Maintainer: Aaron Cochrane <aaron.cochrane@unige.ch>
+Maintainer: Aaron Cochrane <aaron_cochrane@brown.edu>
 Description: miscellaneous functions to assist in analyses
 License: MIT
 Encoding: UTF-8
@@ -18,4 +18,4 @@ Suggests:
     RWiener,
     brms
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3

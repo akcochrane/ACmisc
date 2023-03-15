@@ -10,7 +10,6 @@
 #' @param data Data to use
 #' @param nBoots Number of resamples
 #'
-#' @return
 #' @export
 #'
 oos_partial <- function(xvars,partialvars = c(),data,nBoots = 200){
