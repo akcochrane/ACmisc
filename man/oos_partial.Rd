@@ -20,3 +20,9 @@ Uses \code{tef_rlm_boot()} to get out-of-sample variance explained as well as bo
 The latter is two times the proportion of the bootstrapped distribution is on the opposite side of
 zero than the median coefficient.
 }
+\details{
+Returns a list with two matrices: The first reports the 
+bivariate out-of-sample variance explained (upper triangle)
+and partial out-of-sample variance explained (lower triangle).
+The second reports the pseudo-p-values, as described above.
+}

@@ -29,16 +29,49 @@ brm_optimizing(
 
 \item{strata}{The strata to use in resampling; a vector the length of the data set's rows. If all values are equal, no stratification is used in resampling}
 
-\item{crossvals}{Number of cross-validations}
+\item{crossvals}{Number of cross-validations [currently not implemented]}
 
 \item{bootstrap}{Bootstrapping is done by default if \code{strata} is provided. However, in certain cases (e.g., if cross-validation is desired but bootstrapping is not), bootstrapping can be turned off by setting \code{bootstrap = F}}
 
 \item{refresh}{Should progress be printed?
 
-Use \code{\link[rstan]{optimizing}} fit a \code{\link[brms]{brm}}-style model}
+Use \code{\link[rstan]{optimizing}} fit a \code{\link[brms]{brm}}-style model.
+
+This function is an attempt to merge the usability and flexibility of \code{\link[brms]{brm}}
+and the [potential] efficiency of \code{\link[rstan]{optimizing}}. This may be useful in various
+circumstances, for example, when desiring a direct comparison between Bayesian and maximum-likelihood
+methods (e.g., to give an indication of the influence of priors), or when other methods are
+problematically computationally expensive. While it is always recommended to use 
+\code{\link[brms]{brm}} with \code{algorithm = 'sampling'}, preferably checking robustness to 
+priors and model specification through model comparison, sometimes this ideal is not going to 
+be feasible. The current function provides maximum-likelihood estimation with a
+\code{\link[brms]{brm}}-like interface.
+
+Several major limitation persists, however. One limitation is that sampling methods 
+inherently provide distributions of parameters whereas maximum-likelihood methods do not.
+The simplest solution to this would be using the Hessian of the optimization, but this matrix
+is not always well-behaved. A potentially more robust solution is to bootstrap the model (i.e.,
+in principle, draw parameters from their sampling distribution by resampling data with replacement
+and re-fitting the model), but this leads to the second limitation. 
+As of now the implementation of \code{brm_optimizing}
+is apt to crash the R session with repeated calls or with very large models/datasets; 
+bootstrapping as well as robustness checks of point estimates are necessary to fully
+interpret maximum-likelihood fits, but these are limited when R is apt to crash.
+
+In summary, the user is advised to proceed with caution. Repeated maximum-likelihood fitting
+and bootstrapping are likely to be the most beneficial applications of this method, but the 
+current implementation is somewhat unstable for these applications.}
 }
 \description{
 Maximum-likelihood fitting of a brm-style model
+}
+\note{
+Most errors and warnings can be ignored; they are likely do due hiccups in the
+pipeline that do not influence the final outcome. The error 
+\code{Error in chol.default(-H)} indicates that the Hessian was ill-behaved and
+direct approximations of the estimates' standard errors were likely impossible.
+As long as the resulting object contains \code{Est.Error} and CI, however,
+it is likely that at least one estimation run allowed for these approximations.
 }
 \examples{
 

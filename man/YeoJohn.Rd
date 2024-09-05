@@ -4,7 +4,7 @@
 \alias{YeoJohn}
 \title{Apply optimal Yeo-Johnson transformation to a numeric vector}
 \usage{
-YeoJohn(x, keepMedian = T, keepMAD = T)
+YeoJohn(x, keepMedian = T, keepMAD = T, trim = 0)
 }
 \arguments{
 \item{x}{numeric vector to transform}
@@ -12,8 +12,11 @@ YeoJohn(x, keepMedian = T, keepMAD = T)
 \item{keepMedian}{Should the result be shifted so that it has the same median as the input vector?}
 
 \item{keepMAD}{Should the result be scaled so that it has the same dispersion (median absolute deviation) as the input vector?}
+
+\item{trim}{Numeric value between 0 and .5 . For robustness against outliers, this amount of each of the distribution's tails is excluded when estimating the optimal lambda.}
 }
 \description{
 Finds the Yeo-Johnson transformation that minimizes the skewness of the vector.
 Returns the transformed vector with an attribute "lambda" (transformation parameter).
+Uses \code{\link[VGAM]{yeo.johnson}}.
 }

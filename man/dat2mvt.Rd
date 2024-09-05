@@ -23,7 +23,12 @@ actual multivariate skew-T parameters (\code{mvt_coef}).
 Because distributional quantiles (CI) are estimated using randomly-generated
 values from the multivariate distribution, increasing the number of values
 will make the estimates more stable. Conversely, smaller values of \code{nRanGen}
-will make estimates less stable.
+will make estimates less stable but will speed up execution somewhat.
+
+Multivariate distribution estimation will become very slow with increasing numbers
+of variables, and with inappropriate variables (e.g., binary). If the function is 
+taking very long to run, it is recommended to start with only a handful of variables,
+and add more slowly.
 
 Relies on the \code{\link[sn]{`sn-package`}}) package.}
 }

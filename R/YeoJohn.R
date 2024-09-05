@@ -2,25 +2,29 @@
 #'
 #' Finds the Yeo-Johnson transformation that minimizes the skewness of the vector.
 #' Returns the transformed vector with an attribute "lambda" (transformation parameter).
+#' Uses \code{\link[VGAM]{yeo.johnson}}.
 #'
 #' @param x numeric vector to transform
 #' @param keepMedian Should the result be shifted so that it has the same median as the input vector?
 #' @param keepMAD Should the result be scaled so that it has the same dispersion (median absolute deviation) as the input vector?
+#' @param trim  Numeric value between 0 and .5 . For robustness against outliers, this amount of each of the distribution's tails is excluded when estimating the optimal lambda.
 #'
 #' @export
 #'
-YeoJohn <- function(x,keepMedian=T,keepMAD=T){
+YeoJohn <- function(x,keepMedian=T,keepMAD=T,trim = 0){
 
   yeojohnson <- VGAM::yeo.johnson
 
   require(psych)
+  
+  if(trim == 0){trim == .0001} # very small offset in the case of problematic tails
 
   xOut <- rep(NA,length(x))
   x_nonNA <- !is.na(x)
 
   x <- na.omit(x)
 
-  x_expanded <- quantile(x,seq(.0001,.9999,length = 1E4))
+  x_expanded <- quantile(x,seq(trim,1-trim,length = 1E4)) # for better performance with small sample sizes
 
   med_orig <- median(x_expanded)
   mad_orig <- mad(x_expanded)
