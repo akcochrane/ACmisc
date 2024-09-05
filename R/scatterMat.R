@@ -11,7 +11,9 @@
 #' 
 #' scatterMat(iris, colNames = c('Sepal.Width','Petal.Width'),c('Sepal.Length','Petal.Length'))
 #' 
-scatterMat <- function(df, colNames, rowNames, corMethod = 'spearman'){
+scatterMat <- function(df, colNames, rowNames
+                       , corMethod = 'spearman'
+                       ,lineColor = 'black'){
   # df <- d_subj[d_subj$Gender < 3 , ]
   library(ggplot2)
   library(gridExtra)
@@ -25,7 +27,7 @@ scatterMat <- function(df, colNames, rowNames, corMethod = 'spearman'){
       gList[[paste0(curRow,'_',curCol)]] <-
         ggplot(df, aes_string(x = curCol, y = curRow)) +
         theme_bw() +
-        geom_smooth(method='lm') +
+        geom_smooth(method='lm', color = lineColor) +
         geom_point() +
         labs(x = paste0(curCol , '\n',corLetter,' =' ,round(cor(df[,curRow],df[,curCol], method = corMethod, use = 'complete'),3))) +
         theme(
