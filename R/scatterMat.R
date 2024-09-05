@@ -16,15 +16,18 @@ scatterMat <- function(df, colNames, rowNames, corMethod = 'spearman'){
   library(ggplot2)
   library(gridExtra)
   
+  if(corMethod == 'spearman'){corLetter = 'rho'}
+  if(corMethod == 'pearson'){corLetter = 'r'}
+  
   gList <- list();  for(curRow in rowNames){
     for(curCol in colNames){
       
       gList[[paste0(curRow,'_',curCol)]] <-
-        ggplot(df, aes_string(y = curCol, x = curRow)) +
+        ggplot(df, aes_string(x = curCol, y = curRow)) +
         theme_bw() +
         geom_smooth(method='lm') +
         geom_point() +
-        labs(x = paste0(curRow , '\nr =' ,round(cor(df[,curRow],df[,curCol], method = corMethod, use = 'complete'),3))) +
+        labs(x = paste0(curCol , '\n',corLetter,' =' ,round(cor(df[,curRow],df[,curCol], method = corMethod, use = 'complete'),3))) +
         theme(
           text = element_text(family = 'serif')
           ,axis.title.x = element_text(size = 10),
