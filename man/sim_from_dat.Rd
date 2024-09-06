@@ -4,25 +4,49 @@
 \alias{sim_from_dat}
 \title{Simulate new data from a dataset's quantiles}
 \usage{
-sim_from_dat(nSim, datIn, nTries = 500)
+sim_from_dat(nSim, datIn, minPerClust = 100, nTries = 500)
 }
 \arguments{
 \item{nSim}{Number of simulated observations}
 
 \item{datIn}{Data to simulate from}
 
-\item{nTries}{Number of simulated datasets to generate. Only one, the one with the rank correlation closest to the original dataset's, will be returned.
+\item{minPerClust}{[Optional] If subsets of the dataset are desired to be simulated from, these subsets can be identified through K-means clustering.}
 
-Given an existing dataset's rank correlation structure and the quantiles of 
-the variables in that dataset, a new dataset is simulated from the quantiles
-and attempting to match the rank correlation of the original.}
+\item{nTries}{Number of simulated datasets to generate. Only one (i.e., the one with the rank correlation closest to the original dataset's) will be returned.}
 }
 \description{
 Simulate new data from a dataset's quantiles
 }
+\details{
+Given an existing dataset's rank correlation structure and the quantiles of 
+the variables in that dataset, a new dataset is simulated from the quantiles
+and attempting to match the rank correlation of the original.
+
+Sometimes it may be inappropriate to assume that rank correlations would be 
+homogeneous across an entire dataset, and instead there may be subsets of the 
+data that show different patterns than the full dataset (e.g., Simpson's paradox).
+If \code{minPerClust} is less than the number of observations in \code{datIn},
+then k-means clustering (default R \code{\link{kmeans}}) is used iteratively to 
+determine the maximum number of clusters for which the minimum cluster size
+is at least \code{minPerClust}. If there are at least two clusters satisfying
+this criterion, then the simulation from quantiles and rank correlations is 
+completed for each identified cluster separately, and these are concatenated in the 
+returned data frame. In general, the smaller the value of \code{minPerClust},
+[1] the closer the simulated data will be to the original data (including 
+undesirable noise or other idiosyncrasies), and [2] the longer the run time
+will be. Given that correlations are unlikely to be reliable with small numbers
+of observations, it would be very strange to have \code{minPerClust} be below
+20.
+}
 \examples{
 
-new_iris <- sim_from_dat(200,iris) # note that non-numeric variables will be dropped
+# note that non-numeric variables will be dropped
+new_iris_1 <- sim_from_dat(250,iris) 
+
+# For the iris dataset, this will simulate from separate empirically-defined
+# clusters to better reflect the clustered nature of the original data.
+new_iris_2 <- sim_from_dat(250,iris, minPerClust = 40) 
 
 }
 \seealso{
