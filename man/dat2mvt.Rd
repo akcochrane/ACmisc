@@ -40,4 +40,7 @@ dat <- data.frame(x = rexp(200) , y= exp(rnorm(200)) , z = log(rnorm(200 , 5)))
 got_mvt <- dat2mvt(dat)
 got_mvt ; apply(dat, 2, quantile , c(.025 , .5 , .975))
 
+# to generate new data using this fit multivariate skew-T distribution:
+simulated_dat <- sn::rmst(50,dp =attr(got_mvt,'mvt_dp'))
+
 }

@@ -1,16 +1,19 @@
 #' Simulate new data from a numeric and/or logical data frame or matrix
 #'
+#' Simulates a new dataset, conforming to a reference dataset as closely as possible
 #' By resampling the existing data, only possible values are allowed in simulating
 #' a new dataset. This function attempts to minimize error in correlational
 #' structure, median, and MAD.
 #'
 #' Error, that is minimized, is defined as:
-#' err <-
+#' \code{err <-
 #' sum((orig_correl - cur_correl)^2)*mean(orig_mad) +
 #' sum((orig_med - cur_med)^2)+
-#' sum((orig_mad - cur_mad)^2)
+#' sum((orig_mad - cur_mad)^2)}
 #'
-#' Where orig_correl and cur_correl are the original and current correlation matrices.
+#' Where \code{orig_correl} and \code{cur_correl} are the original and current correlation matrices.
+#' This is a somewhat arbitrary loss function, but it should do OK for matching new and
+#' old datasets.
 #'
 #' Next step: take a groupingVar argument, and simulate from subsets of the data for each
 #' unique value of groupingVar, then concatenate those subsets of data (while generating

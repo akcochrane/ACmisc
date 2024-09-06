@@ -4,7 +4,7 @@
 \alias{scatterMat}
 \title{Create a matrix of scatter plots, with each row and each variable containing one variable}
 \usage{
-scatterMat(df, colNames, rowNames, corMethod = "spearman")
+scatterMat(df, colNames, rowNames, corMethod = "spearman", lineColor = "black")
 }
 \arguments{
 \item{df}{Data frame}

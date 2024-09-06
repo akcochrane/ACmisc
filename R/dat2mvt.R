@@ -32,6 +32,9 @@
 #' got_mvt <- dat2mvt(dat)
 #' got_mvt ; apply(dat, 2, quantile , c(.025 , .5 , .975))
 #' 
+#' # to generate new data using this fit multivariate skew-T distribution:
+#' simulated_dat <- sn::rmst(50,dp =attr(got_mvt,'mvt_dp'))
+#' 
 dat2mvt <- function(d, nRanGen = 5E4){
   
   # what would be good would be to have two types of example:
