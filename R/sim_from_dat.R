@@ -3,7 +3,7 @@
 #'
 #' @param nSim Number of simulated observations
 #' @param datIn Data to simulate from
-#' @param minPerClust [Optional] If subsets of the dataset are desired to be simulated from, these subsets can be identified through K-means clustering.
+#' @param minPerClust [Optional] If subsets of the dataset are desired to be simulated from, these subsets can be identified through K-means clustering. See Details.
 #' @param nTries Number of simulated datasets to generate. Only one (i.e., the one with the rank correlation closest to the original dataset's) will be returned.
 #'
 #' @details 
@@ -27,6 +27,8 @@
 #' will be. Given that correlations are unlikely to be reliable with small numbers
 #' of observations, it would be very strange to have \code{minPerClust} be below
 #' 20.
+#' 
+#' Requires the \code{mvtnorm} package.
 #'
 #' @export
 #' 
@@ -43,7 +45,7 @@
 #' # clusters to better reflect the clustered nature of the original data.
 #' new_iris_2 <- sim_from_dat(250,iris, minPerClust = 40) 
 #' 
-sim_from_dat <- function(nSim, datIn, minPerClust = 100, nTries = 500){
+sim_from_dat <- function(nSim, datIn, minPerClust = 100, nTries = 100){
   
   library(mvtnorm)
   
@@ -68,8 +70,8 @@ sim_from_dat <- function(nSim, datIn, minPerClust = 100, nTries = 500){
   nPerClust <- round((table(datClusts)/sum(table(datClusts)) ) * nSim)
   while(sum(nPerClust) < nSim){ nPerClust[1] <- nPerClust[1] + 1 } # deal with rounding error
   
+  ## get a simulated dataset for each cluster, and concatenate
   datOut <- data.frame()
-  
   for(curClust in unique(datClusts)){
     
     datIn_clust <- datIn[datClusts == curClust,]
@@ -101,6 +103,7 @@ sim_from_dat <- function(nSim, datIn, minPerClust = 100, nTries = 500){
   rownames(datOut) <- NULL
   
   attr(datOut, 'nClusters') <- length(unique(datClusts))
+  attr(datOut, 'cluster_id_original_dat') <- datClusts
   
   return(datOut) 
 }
