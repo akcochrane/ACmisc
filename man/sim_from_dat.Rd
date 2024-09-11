@@ -4,16 +4,27 @@
 \alias{sim_from_dat}
 \title{Simulate new data from a dataset's quantiles}
 \usage{
-sim_from_dat(nSim, datIn, minPerClust = 100, nTries = 500)
+sim_from_dat(
+  nSim,
+  datIn,
+  minPerClust = 100,
+  nTries = 100,
+  groups = NA,
+  simplify = T
+)
 }
 \arguments{
 \item{nSim}{Number of simulated observations}
 
 \item{datIn}{Data to simulate from}
 
-\item{minPerClust}{[Optional] If subsets of the dataset are desired to be simulated from, these subsets can be identified through K-means clustering.}
+\item{minPerClust}{[Optional] If empirically-defined subsets of the dataset are desired to be simulated from, these subsets can be identified through K-means clustering. See Details.}
 
 \item{nTries}{Number of simulated datasets to generate. Only one (i.e., the one with the rank correlation closest to the original dataset's) will be returned.}
+
+\item{groups}{If desired, a vector can be supplied to split the data and simulate separately given this grouping variable. This may lead to slightly different eventual numbers of simulated values due to rounding errors in the proportions of the total data made up by each group.}
+
+\item{simplify}{If \code{groups} is applied, the simulated data defaults to being merged into a single data frame. However, the simulated data can be returned as a list instead (when \code{simplify = FALSE}).}
 }
 \description{
 Simulate new data from a dataset's quantiles
@@ -26,6 +37,10 @@ and attempting to match the rank correlation of the original.
 Sometimes it may be inappropriate to assume that rank correlations would be 
 homogeneous across an entire dataset, and instead there may be subsets of the 
 data that show different patterns than the full dataset (e.g., Simpson's paradox).
+These can be addressed in two ways: by specifying the groups explicitly (through
+argument \code{groups}) or by empirically estimating group with k-means clustering
+(or by a combination of both together, with empirical clustering applied to each
+explicitly-defined group).
 If \code{minPerClust} is less than the number of observations in \code{datIn},
 then k-means clustering (default R \code{\link{kmeans}}) is used iteratively to 
 determine the maximum number of clusters for which the minimum cluster size
@@ -38,6 +53,8 @@ undesirable noise or other idiosyncrasies), and [2] the longer the run time
 will be. Given that correlations are unlikely to be reliable with small numbers
 of observations, it would be very strange to have \code{minPerClust} be below
 20.
+
+Requires the \code{mvtnorm} package.
 }
 \examples{
 
@@ -47,6 +64,9 @@ new_iris_1 <- sim_from_dat(250,iris)
 # For the iris dataset, this will simulate from separate empirically-defined
 # clusters to better reflect the clustered nature of the original data.
 new_iris_2 <- sim_from_dat(250,iris, minPerClust = 40) 
+
+# Instead we could simulate by defining the iris Species:
+new_iris_3 <- sim_from_dat(250,iris, groups = iris$Species) 
 
 }
 \seealso{
