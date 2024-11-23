@@ -41,7 +41,9 @@ These can be addressed in two ways: by specifying the groups explicitly (through
 argument \code{groups}) or by empirically estimating group with k-means clustering
 (or by a combination of both together, with empirical clustering applied to each
 explicitly-defined group).
-If \code{minPerClust} is less than the number of observations in \code{datIn},
+
+If \code{minPerClust} is less than the number of observations in \code{datIn} 
+(or less than the size of an explicitly-defined group),
 then k-means clustering (default R \code{\link{kmeans}}) is used iteratively to 
 determine the maximum number of clusters for which the minimum cluster size
 is at least \code{minPerClust}. If there are at least two clusters satisfying
