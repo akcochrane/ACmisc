@@ -11,15 +11,16 @@ r2bf(r, n, rscale = "medium", nsims = 20, returnThresholds = FALSE)
 
 \item{n}{}
 
-\item{rscale}{Passes to the \code{rscale} argument of \code{\link[BayesFactor]{correlationBF}}. Choose from "medium.narrow", "medium", "wide", and "ultrawide". As in \code{correlationBF}, defaults to "medium".}
+\item{rscale}{Passes to the \code{rscale} argument of \code{\link[BayesFactor]{ttest.tstat}}. Choose from "medium.narrow", "medium", "wide", and "ultrawide". As in \code{ttest.tstat}, defaults to "medium".}
 
-\item{nsims}{Number of simulated datasets for which to find the Bayes Factors; more simulations will lead to more-stable results}
+\item{nsims}{Not currently used.}
 
 \item{returnThresholds}{Logical. Should the boundaries indicating "decision thresholds" be estimated?}
 }
 \description{
-Uses default values from the \code{BayesFactor::correlationBF} function to convert an 
-effect size \emph{r} to a Bayes factor by simulating datasets, given the sample size \emph{n}. Can also include as attributes the thresholds, 
+Uses default values from the \code{\link[BayesFactor]{ttest.tstat}} function to convert an 
+effect size \emph{r} to a Bayes factor by first finding the T value, given the sample size \emph{n}. 
+Can also include as attributes the thresholds, 
 at that sample size, for conventionally "accepting the null hypothesis" (i.e., BF < .333)
 or "rejecting the null hypothesis" (i.e., BF > 3). Bayes Factors are returned "raw," that is,
 as the ratio of the evidence for the alternative hypothesis to the evidence for the null hypothesis.

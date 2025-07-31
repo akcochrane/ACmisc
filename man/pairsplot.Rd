@@ -13,7 +13,7 @@ pairsplot(d, method = "Spearman", main = "", stars = T, color = "darkgrey")
 
 \item{main}{Plot title, as in plot()}
 
-\item{stars}{Do you want magic stars? (same as \code{pairs.panels()})}
+\item{stars}{Do you want magic stars? (same as \code{\link[psych]{pairs.panels}})}
 
 \item{color}{What color do you want in the histogram bars?}
 }
@@ -22,8 +22,14 @@ The default title includes \strong{approximate heuristic} Bayes Factors-based es
 evidence for the lack of a correlation" or "at least moderate evidence for a correlation." The BF approximation
 uses the \code{ACmisc::r2bf} function, and finds the r value associated with a
 raw BF <.33333 or >3. \strong{Beware}: The \emph{n} used in these calculations is the number of rows of the data frame.
-If you have missing data, these estimates could be wildly off. To speed up the use of the function,
+If you have missing data, these estimates could be wildly off.
+}
+\details{
+The Bayes Factor estimation takes some time. To speed up the use of the function,
 supply a title to \code{main} to prevent the estimation of the Bayes Factors.
+
+It is \strong{strongly recommended} to use \code{\link[BayesFactor]{correlationBF}} directly
+for a Bayes Factor for any particular correlation of interest.
 }
 \examples{
 d <- iris[1:100,c('Sepal.Length','Sepal.Width','Petal.Length','Petal.Width')]
