@@ -18,11 +18,12 @@ pairsplot(d, method = "Spearman", main = "", stars = T, color = "darkgrey")
 \item{color}{What color do you want in the histogram bars?}
 }
 \description{
-The default title includes approximate Bayes Factors-based estimates of regions providing "At least moderate
+The default title includes \strong{approximate heuristic} Bayes Factors-based estimates of regions providing "At least moderate
 evidence for the lack of a correlation" or "at least moderate evidence for a correlation." The BF approximation
-uses the \code{BayesFactor::ttest.tstat()} function, and finds the r value associated with a T value associated with a
+uses the \code{ACmisc::r2bf} function, and finds the r value associated with a
 raw BF <.33333 or >3. \strong{Beware}: The \emph{n} used in these calculations is the number of rows of the data frame.
-If you have missing data, these estimates could be wildly off.
+If you have missing data, these estimates could be wildly off. To speed up the use of the function,
+supply a title to \code{main} to prevent the estimation of the Bayes Factors.
 }
 \examples{
 d <- iris[1:100,c('Sepal.Length','Sepal.Width','Petal.Length','Petal.Width')]
