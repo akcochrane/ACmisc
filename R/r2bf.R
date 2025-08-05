@@ -4,12 +4,19 @@
 #' Uses default values from the \code{\link[BayesFactor]{ttest.tstat}} function to convert an 
 #' effect size \emph{r} to a Bayes factor by first finding the T value, given the sample size \emph{n}. 
 #' Can also include as attributes the thresholds, 
-#' at that sample size, for conventionally "accepting the null hypothesis" (i.e., BF < .333)
-#' or "rejecting the null hypothesis" (i.e., BF > 3). Bayes Factors are returned "raw," that is,
+#' at that sample size, for conventionally "accepting that there is at least moderate evidence against the tested association" (i.e., BF < .333)
+#' or "at least moderate evidence for the tested association" (i.e., BF > 3). Bayes Factors are returned "raw," that is,
 #' as the ratio of the evidence for the alternative hypothesis to the evidence for the null hypothesis.
 #' All values returned should be treated as \strong{approximate}, and the hypothesis 
 #' acceptance thresholds should be treated as \strong{heuristics}. For Bayes Factors for
 #' a particular correlation, using \code{\link[BayesFactor]{correlationBF}} is \strong{highly recommended}.
+#' 
+#' In informal testing, the Bayes Factors estimated using the \code{BayesFactor} package (with default priors) 
+#' appear to collapse the 
+#' "zone of ambiguity" with sample sizes above 50 or 60, leading to a large proportion of BF<.333 or BF>3. The 
+#' user should keep in mind that Bayes Factors [1] are \emph{inherently model comparisons} and [2] are often 
+#' \emph{quite dependent on the prior being used} (see, e.g., doi.org/10.1002/wics.1595), making default,
+#' automatic, and interpretable estimation of these evidence ratios a difficult task.
 #' 
 #' @param r 
 #' @param n 
