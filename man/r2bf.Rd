@@ -18,7 +18,7 @@ r2bf(r, n, rscale = "medium", nsims = 20, returnThresholds = FALSE)
 \item{returnThresholds}{Logical. Should the boundaries indicating "decision thresholds" be estimated?}
 }
 \description{
-Uses default values from the \code{\link[BayesFactor]{ttest.tstat}} function to convert an 
+The Bayes Factor is one form of evidence ratio. This function uses default values from the \code{\link[BayesFactor]{ttest.tstat}} function to convert an 
 effect size \emph{r} to a Bayes factor by first finding the T value, given the sample size \emph{n}. 
 Can also include as attributes the thresholds, 
 at that sample size, for conventionally "accepting that there is at least moderate evidence against the tested association" (i.e., BF < .333)
@@ -31,10 +31,19 @@ a particular correlation, using \code{\link[BayesFactor]{correlationBF}} is \str
 \details{
 In informal testing, the Bayes Factors estimated using the \code{BayesFactor} package (with default priors) 
 appear to collapse the 
-"zone of ambiguity" with sample sizes above 50 or 60, leading to a large proportion of BF<.333 or BF>3. The 
+"zone of ambiguity" with sample sizes above around 50 or 75, leading to a large proportion of BF<.333 or BF>3. 
+This is especially problematic due to the relatively large correlations (e.g., >.1) identified as "evidence for
+the null hypothesis." The 
 user should keep in mind that Bayes Factors [1] are \emph{inherently model comparisons} and [2] are often 
-\emph{quite dependent on the prior being used} (see, e.g., doi.org/10.1002/wics.1595), making default,
-automatic, and interpretable estimation of these evidence ratios a difficult task.
+\emph{quite dependent on the prior being used} (see, e.g., \code{doi.org/10.1002/wics.1595}), making default,
+automatic, and interpretable estimation of these evidence ratios a near-impossible task. 
+
+The best alternative
+is to frame your model comparison in a more formal way, by defining two models (e.g., regressions) with maximally-similar priors
+and then using bridge sampling to estimate marginal likelihoods with which to calculate evidence ratios (i.e., BFs). 
+The \code{brms} package includes excellent ways to implement this type of analysis.
+
+For discussion of methods and conventional BF categories, see \code{doi: 10.3758/s13423-012-0295-x}.
 }
 \examples{
 exampleR <- cor(dat_cochraneEtAl_2019_PLOSOne$enum , dat_cochraneEtAl_2019_PLOSOne$mot)
