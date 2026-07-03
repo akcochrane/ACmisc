@@ -98,7 +98,6 @@ ddm_dr_lm <- function(formIn,data,respVar,nBoots=2,fixBias = NA){
         tau=total_wdm$coefficients['tau'],
         beta=total_wdm$coefficients['beta'])
 
-
   fitMods_boots <- as.data.frame(t(replicate(nBoots,
                              {
                                fitPars <- NA
