@@ -84,7 +84,6 @@ ddm_dr_lm <- function(formIn,data,respVar,nBoots=2,fixBias = NA){
     return(negLL)
   }
 
-
   startPars <- c(total_wdm$coefficients['delta'],rep(0,length(modTerms)-1))
   names(startPars)<- modTerms
 
